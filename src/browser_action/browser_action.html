@@ -1,6 +1,6 @@
 <!doctype html>
 <style type="text/css">
-	#mainPopup {
+	.container {
 		padding: 10px;
 		height: 200px;
 		width: 400px;
@@ -11,7 +11,33 @@
 	}
 </style>
 
-<div id="mainPopup">
-<h1>Ethereum price (Kraken)</h1>
-<p></p>
+<div class="container">
+  <h1>Ethereum price (Kraken)</h1>
+  <form class="options-form">
+    <label>
+      <input type="radio" name="currency" value="USD">
+      USD
+    </label>
+    <label>
+      <input type="radio" name="currency" value="EUR">
+      EUR
+    </label>
+    <label>
+      <input type="radio" name="currency" value="GBP">
+      GBP
+    </label>
+    <label>
+      <input type="radio" name="currency" value="CAD">
+      CAD
+    </label>
+  </form>
+
+	<h1 class="price">$ --.--</h1>
+	<h2 class="opening">$ --.--</h2>
+	<h2 class="high">$ --.--</h2>
+	<h2 class="low">$ --.--</h2>
+	<h2 class="percentage">--.--%</h2>
+
+  <script type="text/javascript" src="../../js/jquery-3.1.1.slim.min.js"></script>
+  <script type="text/javascript" src="browser_action.js"></script>
 </div>
