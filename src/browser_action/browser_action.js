@@ -57,11 +57,8 @@
 
     updateElementPrice: function (element, price) {
       var trimmedPrice = price.substring(0, price.indexOf('.') + 3);
-      if (config.symbol_prefix) {
-        $(element).text(config.symbol + ' ' + trimmedPrice);
-      } else {
-        $(element).text(trimmedPrice + ' ' + config.symbol);
-      }
+      var text = config.symbol_prefix ? config.symbol + ' ' + trimmedPrice : trimmedPrice + ' ' + config.symbol;
+      $(element).text(text);
     },
 
     handleSingleRequest: function () {
@@ -102,7 +99,8 @@
 
     updatePercentage: function (element, price, opening) {
       var percentage = (parseFloat(price) * 100 / parseFloat(opening) - 100).toString();
-      $(element).text(percentage.substring(0, percentage.indexOf('.') + 3) + '%');
+      var percentageText = percentage >= 0 ? '+' : '-';
+      $(element).text(percentageText + percentage.substring(0, percentage.indexOf('.') + 3) + '%');
     },
 
     updateBadge: function (price) {

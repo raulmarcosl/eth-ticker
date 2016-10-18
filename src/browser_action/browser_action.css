@@ -1,0 +1,39 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #ECF0F1;
+  color: #3C3C3D;
+}
+
+.title {
+  font-size: 24px;
+}
+
+.price {
+  font-size: 40px;
+}
+
+.container {
+  padding: 10px;
+  height: 200px;
+  width: 400px;
+}
+
+.price-container {
+  float: left;
+  width: 230px;
+  height: 120px;
+}
+
+.extra-info-container {
+  float: right;
+  width: 170px;
+  height: 120px;
+}
+
+.options-form {
+  margin-bottom: 20px;
+}
+
+label {
+  margin-right: 10px;
+}

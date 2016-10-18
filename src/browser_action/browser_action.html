@@ -1,43 +1,45 @@
 <!doctype html>
-<style type="text/css">
-	.container {
-		padding: 10px;
-		height: 200px;
-		width: 400px;
-		font-family: Helvetica, Ubuntu, Arial, sans-serif;
-	}
-	h1 {
-		font-size: 2em;
-	}
-</style>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="browser_action.css"></link>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">ETH price @ Kraken</h1>
+    <div class="price-container">
+      <h1><span class="price">$ --.--</span></h1>
+      <h2><span class="percentage">--.--%</span></h2>
+    </div>
+    <div class="extra-info-container">
+      <h3>Opening: <span class="opening">$ --.--</span></h2>
+      <h3>High: <span class="high">$ --.--</span></h2>
+      <h3>Low: <span class="low">$ --.--</span></h2>
+    </div>
+    <div class="options-container">
+      <hr>
+      <h2 class="options-title">Currency:</h2>
+      <form class="options-form">
+        <label>
+          <input type="radio" name="currency" value="USD">
+          USD
+        </label>
+        <label>
+          <input type="radio" name="currency" value="EUR">
+          EUR
+        </label>
+        <label>
+          <input type="radio" name="currency" value="GBP">
+          GBP
+        </label>
+        <label>
+          <input type="radio" name="currency" value="CAD">
+          CAD
+        </label>
+      </form>
+    </div>
 
-<div class="container">
-  <h1>Ethereum price (Kraken)</h1>
-  <form class="options-form">
-    <label>
-      <input type="radio" name="currency" value="USD">
-      USD
-    </label>
-    <label>
-      <input type="radio" name="currency" value="EUR">
-      EUR
-    </label>
-    <label>
-      <input type="radio" name="currency" value="GBP">
-      GBP
-    </label>
-    <label>
-      <input type="radio" name="currency" value="CAD">
-      CAD
-    </label>
-  </form>
-
-	<h1 class="price">$ --.--</h1>
-	<h2 class="opening">$ --.--</h2>
-	<h2 class="high">$ --.--</h2>
-	<h2 class="low">$ --.--</h2>
-	<h2 class="percentage">--.--%</h2>
-
-  <script type="text/javascript" src="../../js/jquery-3.1.1.slim.min.js"></script>
-  <script type="text/javascript" src="browser_action.js"></script>
-</div>
+    <script type="text/javascript" src="../../js/jquery-3.1.1.slim.min.js"></script>
+    <script type="text/javascript" src="browser_action.js"></script>
+  </div>
+</body>
+</html>
