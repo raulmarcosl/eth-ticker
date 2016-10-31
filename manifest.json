@@ -1,6 +1,6 @@
 {
   "name": "ETH ticker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 2,
   "description": "This extension displays the current Ethereum (ETH) price on the badge icon.",
   "icons": {

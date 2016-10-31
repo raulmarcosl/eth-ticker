@@ -83,7 +83,7 @@
           funcScope.updateElementPrice('.high', high);
           funcScope.updateElementPrice('.low', low);
           funcScope.updatePercentage('.percentage', price, opening);
-          funcScope.updateBadge(price);
+          funcScope.updateBadge(price, opening);
 
           funcScope.cacheResponse(res);
         }
@@ -103,13 +103,22 @@
       $(element).text(percentageText + percentage.substring(0, percentage.indexOf('.') + 3) + '%');
     },
 
-    updateBadge: function (price) {
+    updateBadge: function (price, opening) {
+      this.updateBadgeColor(price, opening);
+      this.updateBadgeText(price);
+    },
+
+    updateBadgeColor: function (price, opening) {
+      var color = price > opening ? config.green_badge_color : config.red_badge_color;
+      chrome.browserAction.setBadgeBackgroundColor({
+        color: color
+      });
+    },
+
+    updateBadgeText: function (price) {
       if (!config.decimal_separator) {
         price = price.replace('.', '');
       }
-      chrome.browserAction.setBadgeBackgroundColor({
-        color: config.badge_color
-      });
       chrome.browserAction.setBadgeText({
         text: price.substr(0, 3)
       });

@@ -1,8 +1,9 @@
 (function() {
   var defaultVals = {
-    'refresh_time': 10000,
+    'refresh_time': 60000,
     'decimal_separator': false,
-    'badge_color': '#6787A5',
+    'green_badge_color': '#5cc450',
+    'red_badge_color': '#c45c50',
     'currency': 'USD'
   };
 
@@ -60,16 +61,26 @@
 
     updatePriceBadge: function (res) {
       var price = res['c'][0];
-      this.updateBadge(price);
+      var opening = res['o'];
+      this.updateBadge(price, opening);
     },
 
-    updateBadge: function (price) {
-      if (!config['decimal_separator']) {
+    updateBadge: function (price, opening) {
+      this.updateBadgeColor(price, opening);
+      this.updateBadgeText(price);
+    },
+
+    updateBadgeColor: function (price, opening) {
+      var color = price > opening ? config.green_badge_color : config.red_badge_color;
+      chrome.browserAction.setBadgeBackgroundColor({
+        color: color
+      });
+    },
+
+    updateBadgeText: function (price) {
+      if (!config.decimal_separator) {
         price = price.replace('.', '');
       }
-      chrome.browserAction.setBadgeBackgroundColor({
-        color: config.badge_color
-      });
       chrome.browserAction.setBadgeText({
         text: price.substr(0, 3)
       });
