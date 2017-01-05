@@ -73,10 +73,10 @@
       return function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
           var res = JSON.parse(xhr.responseText)['result']['XETHZ' + config.currency];
-          var price = res['c'][0];
-          var opening = res['o'];
-          var high = res['h'][1];
-          var low = res['l'][1];
+          var price = parseFloat(res['c'][0]);
+          var opening = parseFloat(res['o']);
+          var high = parseFloat(res['h'][1]);
+          var low = parseFloat(res['l'][1]);
 
           funcScope.updateElementPrice('.price', price);
           funcScope.updateElementPrice('.opening', opening);
@@ -91,14 +91,14 @@
     },
 
     cacheResponse: function (res) {
-      localStorage['price'] = res['c'][0];
-      localStorage['opening'] = res['o'];
-      localStorage['high'] = res['h'][1];
-      localStorage['low'] = res['l'][1];
+      localStorage['price'] = parseFloat(res['c'][0]);
+      localStorage['opening'] = parseFloat(res['o']);
+      localStorage['high'] = parseFloat(res['h'][1]);
+      localStorage['low'] = parseFloat(res['l'][1]);
     },
 
     updatePercentage: function (element, price, opening) {
-      var percentage = (parseFloat(price) * 100 / parseFloat(opening) - 100).toString();
+      var percentage = (price * 100 / opening - 100).toString();
       var percentageText = percentage >= 0 ? '+' : '-';
       $(element).text(percentageText + percentage.substring(0, percentage.indexOf('.') + 3) + '%');
     },
@@ -116,6 +116,7 @@
     },
 
     updateBadgeText: function (price) {
+      price = price.toString()
       if (!config.decimal_separator) {
         price = price.replace('.', '');
       }

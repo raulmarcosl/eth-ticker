@@ -53,15 +53,15 @@
     },
 
     cacheResponse: function (res) {
-      localStorage['price'] = res['c'][0];
-      localStorage['opening'] = res['o'];
-      localStorage['high'] = res['h'][1];
-      localStorage['low'] = res['l'][1];
+      localStorage['price'] = parseFloat(res['c'][0]);
+      localStorage['opening'] = parseFloat(res['o']);
+      localStorage['high'] = parseFloat(res['h'][1]);
+      localStorage['low'] = parseFloat(res['l'][1]);
     },
 
     updatePriceBadge: function (res) {
-      var price = res['c'][0];
-      var opening = res['o'];
+      var price = parseFloat(res['c'][0]);
+      var opening = parseFloat(res['o']);
       this.updateBadge(price, opening);
     },
 
@@ -78,6 +78,7 @@
     },
 
     updateBadgeText: function (price) {
+      price = price.toString()
       if (!config.decimal_separator) {
         price = price.replace('.', '');
       }
