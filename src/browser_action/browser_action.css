@@ -1,39 +1,94 @@
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #ECF0F1;
-  color: #3C3C3D;
+  font-family: 'Ubuntu', sans-serif;
+  background-color: #FFF;
+  color: #212121;
+  border: 2px solid #212121;
+  margin: 12px;
+  width: 418px;
+  height: 316px;
+}
+
+.container {
+  margin: 44px 44px 16px;
 }
 
 .title {
-  font-size: 24px;
+  font-size: 30px;
+}
+
+.subtitle {
+  margin-top: -16px;
+  font-size: 10px;
+}
+
+.price-container {
+  padding-top: 2px;
 }
 
 .price {
   font-size: 40px;
 }
 
-.container {
-  padding: 10px;
-  height: 200px;
-  width: 400px;
+.percentage {
+  font-size: 20px;
 }
 
-.price-container {
+.extra-info {
+  font-size: 13px;
+  width: 100%;
+  position: relative;
+  display: inline-block;
+}
+
+.extra-info-left {
   float: left;
-  width: 230px;
-  height: 120px;
+  width: 33%;
 }
 
-.extra-info-container {
+.extra-info-center {
+  float: center;
+  width: 33%;
+  text-align: right;
+}
+
+.extra-info-right {
   float: right;
-  width: 170px;
-  height: 120px;
+  width: 33%;
+  text-align: right;
 }
 
-.options-form {
-  margin-bottom: 20px;
+.options-container {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+}
+
+.input-container {
+  width: 103px;
+  height: 26px;
+  float: left;
+  text-align: center;
+  background-color: #FFF;
+}
+
+input[type="radio"] {
+  display: none;
 }
 
 label {
-  margin-right: 10px;
+  padding-top: 10px;
+  width: 100%;
+  height: 100%;
+  font-size: 13px;
+  display: block;
+  border-top: 2px solid #212121;
+}
+
+.border {
+  border-right: 2px solid #212121;
+}
+
+input[type="radio"]:checked + label {
+  background-color: #000;
+  color: #FFF;
 }

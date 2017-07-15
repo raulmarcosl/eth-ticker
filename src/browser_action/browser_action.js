@@ -28,7 +28,8 @@
 
     registerListeners: function () {
       var self = this;
-      $('.options-form input').on('change', function() {
+      $('.options-form .input-container').on('click', function() {
+        $(this).find('input').prop("checked", true);
         localStorage['currency'] = $('input[name=currency]:checked').val();
         self.resetCurrentVals();
         self.handleSingleRequest();
