@@ -59,7 +59,7 @@
 
     resetInfoShown: function () {
       this.hideElement('.icon-up');
-      this.hideElement('icon-down');
+      this.hideElement('.icon-down');
       $('span').each(function () {
         $(this).text('-');
       });
