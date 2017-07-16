@@ -3,7 +3,6 @@
     'currency': 'USD',
     'symbol': '$',
     'symbol_prefix': true,
-    'refresh_time': 60000,
     'green_badge_color': '#7ED321',
     'red_badge_color': '#D0021B',
   };
@@ -12,7 +11,7 @@
 
   var BrowserAction = {
     init: function () {
-      this.resetCurrentVals();
+      this.resetConfigVars();
       this.initializeContent();
       this.registerListeners();
       this.requestData();
@@ -32,12 +31,13 @@
       $('.options-form .input-container').on('click', function() {
         $(this).find('input').prop("checked", true);
         localStorage['currency'] = $('input[name=currency]:checked').val();
-        self.resetCurrentVals();
+        self.resetConfigVars();
+        self.resetInfoShown();
         self.requestData();
       });
     },
 
-    resetCurrentVals: function () {
+    resetConfigVars: function () {
       for (var key in defaultVals) {
         config[key] = localStorage[key] || defaultVals[key];
       }
@@ -52,15 +52,23 @@
         config.symbol = '\u00A3';
         config.symbol_prefix = true;
       } else if (config.currency === 'CAD') {
-        config.symbol = 'C$';
+        config.symbol = '$';
         config.symbol_prefix = true;
       }
+    },
+
+    resetInfoShown: function () {
+      this.hideElement('.icon-up');
+      this.hideElement('icon-down');
+      $('span').each(function () {
+        $(this).text('-');
+      });
     },
 
     updateElementPrice: function (element, price) {
       var dotIndex = price.indexOf('.') > 0 ? price.indexOf('.') : 0;
       var trimmedPrice = price.substring(0, dotIndex + 3);
-      var text = config.symbol_prefix ? config.symbol + ' ' + trimmedPrice : trimmedPrice + ' ' + config.symbol;
+      var text = config.symbol_prefix ? config.symbol + trimmedPrice : trimmedPrice + config.symbol;
       $(element).text(text);
     },
 
@@ -117,9 +125,27 @@
     },
 
     updatePercentage: function (element, price, opening) {
-      var percentage = (price * 100 / opening - 100).toString();
-      var percentageText = percentage >= 0 ? '+' : '-';
-      $(element).text(percentageText + percentage.substring(0, percentage.indexOf('.') + 3) + '%');
+      var percentage = (parseFloat(price) * 100 / parseFloat(opening) - 100).toString();
+      if (percentage >= 0) {
+        this.hideElement('.icon-down');
+        this.showElement('.icon-up');
+      } else {
+        this.hideElement('.icon-up');
+        this.showElement('.icon-down');
+      }
+
+      var percentageText = percentage >= 0 ? '+' : '';
+      var dotIndex = percentage.indexOf('.');
+      var text = percentageText + percentage.substring(0, dotIndex + 3) + '%';
+      $(element).text(text);
+    },
+
+    hideElement: function (element) {
+      $(element).css('visibility', 'hidden');
+    },
+
+    showElement: function (element) {
+      $(element).css('visibility', 'visible');
     },
 
     updateBadge: function (price, opening) {
@@ -135,7 +161,7 @@
     },
 
     updateBadgeText: function (price) {
-      price = price.toString().replace('.', '');
+      var price = price.toString().replace('.', '');
       chrome.browserAction.setBadgeText({
         text: price.substr(0, 3)
       });

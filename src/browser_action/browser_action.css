@@ -5,11 +5,31 @@ body {
   border: 2px solid #212121;
   margin: 12px;
   width: 418px;
-  height: 316px;
+  height: 330px;
 }
 
 .container {
   margin: 44px 44px 16px;
+}
+
+.row {
+  display: flex;
+}
+
+.price-icons-container {
+  flex: 1;
+  padding-top: 21px;
+  padding-left: 10px;
+}
+
+.icon-up {
+  display: block;
+  visibility: hidden;
+}
+
+.icon-down {
+  display: block;
+  visibility: hidden;
 }
 
 .title {
