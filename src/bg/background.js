@@ -2,8 +2,8 @@
   var defaultVals = {
     'refresh_time': 60000,
     'decimal_separator': false,
-    'green_badge_color': '#5cc450',
-    'red_badge_color': '#c45c50',
+    'green_badge_color': '#7ED321',
+    'red_badge_color': '#D0021B',
     'currency': 'USD'
   };
 
