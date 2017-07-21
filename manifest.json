@@ -2,7 +2,7 @@
   "name": "ETH price (Ethereum)",
   "version": "0.1.1",
   "manifest_version": 2,
-  "description": "This extension displays the current ETH price (Ethereum) on the badge icon.",
+  "description": "Current ETH price on the badge icon.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
