@@ -1,6 +1,6 @@
 (function() {
   var defaultVals = {
-    'refresh_time': 60000,
+    'refresh_time': 10000,
     'decimal_separator': false,
     'green_badge_color': '#7ED321',
     'red_badge_color': '#D0021B',
@@ -9,7 +9,7 @@
 
   var config = {};
 
-  var BackgroundPage = {
+  var Background = {
     init: function () {
       this.resetCurrentVals();
       this.startRequesting();
@@ -25,8 +25,8 @@
       this.handleSingleRequest();
       var self = this;
       this.globalIntervalId = window.setInterval(function () {
-          self.handleSingleRequest();
           self.resetCurrentVals();
+          self.handleSingleRequest();
       }, config.refresh_time);
     },
 
@@ -48,46 +48,19 @@
 
     handleSingleRequestResult: function (raw) {
       var res = JSON.parse(raw)['result']['XETHZ' + config.currency];
-      this.cacheResponse(res);
-      this.updatePriceBadge(res);
-    },
-
-    cacheResponse: function (res) {
-      localStorage['price'] = parseFloat(res['c'][0]);
-      localStorage['opening'] = parseFloat(res['o']);
-      localStorage['high'] = parseFloat(res['h'][1]);
-      localStorage['low'] = parseFloat(res['l'][1]);
-    },
-
-    updatePriceBadge: function (res) {
-      var price = parseFloat(res['c'][0]);
-      var opening = parseFloat(res['o']);
-      this.updateBadge(price, opening);
+      this.updateBadge(res['c'][0], res['o']);
     },
 
     updateBadge: function (price, opening) {
-      this.updateBadgeColor(price, opening);
-      this.updateBadgeText(price);
-    },
+      var color = parseFloat(price) > parseFloat(opening) ? config.green_badge_color : config.red_badge_color;
+      chrome.browserAction.setBadgeBackgroundColor({color: color});
 
-    updateBadgeColor: function (price, opening) {
-      var color = price > opening ? config.green_badge_color : config.red_badge_color;
-      chrome.browserAction.setBadgeBackgroundColor({
-        color: color
-      });
-    },
-
-    updateBadgeText: function (price) {
-      price = price.toString()
-      if (!config.decimal_separator) {
-        price = price.replace('.', '');
-      }
       chrome.browserAction.setBadgeText({
-        text: price.substr(0, 3)
+        text: price.replace('.', '').substr(0, 3)
       });
     }
   };
 
-  return BackgroundPage;
+  return Background;
 
 })().init();

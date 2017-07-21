@@ -19,11 +19,6 @@
 
     initializeContent: function () {
       $('input[value=' + config.currency + ']').prop('checked', true);
-      this.updateElementPrice('.price', localStorage['price']);
-      this.updateElementPrice('.opening', localStorage['opening']);
-      this.updateElementPrice('.high', localStorage['high']);
-      this.updateElementPrice('.low', localStorage['low']);
-      this.updatePercentage('.percentage', localStorage['price'], localStorage['opening']);
     },
 
     registerListeners: function () {
@@ -66,8 +61,7 @@
     },
 
     updateElementPrice: function (element, price) {
-      var dotIndex = price.indexOf('.') > 0 ? price.indexOf('.') : 0;
-      var trimmedPrice = price.substring(0, dotIndex + 3);
+      var trimmedPrice = price.substring(0, Math.max(price.indexOf('.'), 0) + 3);
       var text = config.symbol_prefix ? config.symbol + trimmedPrice : trimmedPrice + config.symbol;
       $(element).text(text);
     },
@@ -78,22 +72,6 @@
       xhr.onreadystatechange = this.onReadyStateChange(xhr, this);
       xhr.open('GET', url, true);
       xhr.send();
-    },
-
-    parseData: function (data) {
-      var price = data['c'][0];
-      var opening = data['o'];
-      var high = data['h'][1];
-      var low = data['l'][1];
-
-      this.updateElementPrice('.price', price);
-      this.updateElementPrice('.opening', opening);
-      this.updateElementPrice('.high', high);
-      this.updateElementPrice('.low', low);
-      this.updatePercentage('.percentage', price, opening);
-      this.updateBadge(price, opening);
-
-      this.cacheResponse(data);
     },
 
     onReadyStateChange: function (xhr, funcScope) {
@@ -111,17 +89,8 @@
           funcScope.updateElementPrice('.low', low);
           funcScope.updatePercentage('.percentage', price, opening);
           funcScope.updateBadge(price, opening);
-
-          funcScope.cacheResponse(res);
         }
       };
-    },
-
-    cacheResponse: function (res) {
-      localStorage['price'] = res['c'][0];
-      localStorage['opening'] = res['o'];
-      localStorage['high'] = res['h'][1];
-      localStorage['low'] = res['l'][1];
     },
 
     updatePercentage: function (element, price, opening) {
@@ -149,21 +118,11 @@
     },
 
     updateBadge: function (price, opening) {
-      this.updateBadgeColor(price, opening);
-      this.updateBadgeText(price);
-    },
+      var color = parseFloat(price) > parseFloat(opening) ? config.green_badge_color : config.red_badge_color;
+      chrome.browserAction.setBadgeBackgroundColor({color: color});
 
-    updateBadgeColor: function (price, opening) {
-      var color = parseFloat(price) > opening ? config.green_badge_color : config.red_badge_color;
-      chrome.browserAction.setBadgeBackgroundColor({
-        color: color
-      });
-    },
-
-    updateBadgeText: function (price) {
-      var price = price.toString().replace('.', '');
       chrome.browserAction.setBadgeText({
-        text: price.substr(0, 3)
+        text: price.replace('.', '').substr(0, 3)
       });
     }
   };
