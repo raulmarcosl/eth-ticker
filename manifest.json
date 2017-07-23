@@ -1,12 +1,12 @@
 {
   "name": "ETH price (Ethereum)",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "manifest_version": 2,
   "description": "Current ETH price on the badge icon.",
   "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+    "16": "icons/icon@16.png",
+    "48": "icons/icon@48.png",
+    "128": "icons/icon@128.png"
   },
   "background": {
     "scripts": [
@@ -18,7 +18,7 @@
     "https://api.kraken.com/"
   ],
   "browser_action": {
-    "default_icon": "icons/icon19.png",
+    "default_icon": "icons/icon@19.png",
     "default_title": "ETH price",
     "default_popup": "src/browser_action/browser_action.html"
   }
