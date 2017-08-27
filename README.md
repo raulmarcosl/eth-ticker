@@ -2,7 +2,7 @@
 
 This Chrome extension displays the current Ethereum (ETH) price on the badge icon. Also it offers more market information in the popup window view.
 
-Currently it's using [Kraken API](https://www.kraken.com/help/api), and it supports different currencies (USD, EUR, GBP, CAD).
+Currently it's using [Kraken API](https://www.kraken.com/help/api), and it supports different currencies (USD, EUR, CAD).
 
 ## Contributing
 

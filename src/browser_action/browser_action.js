@@ -43,9 +43,6 @@
       } else if (config.currency === 'EUR') {
         config.symbol = '\u20AC';
         config.symbol_prefix = false;
-      } else if (config.currency === 'GBP') {
-        config.symbol = '\u00A3';
-        config.symbol_prefix = true;
       } else if (config.currency === 'CAD') {
         config.symbol = '$';
         config.symbol_prefix = true;
