@@ -68,7 +68,7 @@
 
     requestData: function () {
       var xhr = new XMLHttpRequest();
-      var url = 'https://api.kraken.com/0/public/Ticker?pair=XETHZ' + config.currency;
+      var url = 'https://api.kraken.com/0/public/Ticker?pair=ETH' + config.currency;
       xhr.onreadystatechange = this.onReadyStateChange(xhr, this);
       xhr.open('GET', url, true);
       xhr.send();
